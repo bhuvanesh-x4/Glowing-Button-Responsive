@@ -3,173 +3,91 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Glowing Magnetic Button</title>
-
+  <title>Demo Button</title>
   <style>
-    :root{
-      --glow: 0;
-      --mx: 0px;
-      --my: 0px;
-    }
-
-    /* ✅ Prevent scrollbars inside iframe */
-    html, body{
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      overflow: hidden;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-
-    .wrap{
-      height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 0;
-      overflow: hidden;
-    }
-
+    :root { --glow: 0; --mx: 0px; --my: 0px; }
+    html, body{ height:100%; margin:0; padding:0; background:transparent; overflow:hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    .wrap{ height:100vh; display:grid; place-items:center; overflow:hidden; }
     .btn{
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 26px;
-      border-radius: 999px;
-
-      color: #fff;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-
-      background: rgba(10, 10, 16, 0.75);
-      border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
-
-      transform: translate(var(--mx), var(--my));
+      position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:16px 26px; border-radius:999px; color:#fff; text-decoration:none; font-weight:800;
+      letter-spacing:0.2px; background: rgba(10,10,16,0.75); border:1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px); transform: translate(var(--mx), var(--my));
       transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      will-change: transform;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25); will-change: transform; user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
-
     .btn::before{
-      content:"";
-      position:absolute;
-      inset: -18px;
-      border-radius: 999px;
+      content:""; position:absolute; inset:-18px; border-radius:999px;
       background:
         radial-gradient(circle at 30% 40%, rgba(0,255,255,0.55), transparent 45%),
         radial-gradient(circle at 70% 60%, rgba(255,0,255,0.50), transparent 48%),
         radial-gradient(circle at 50% 50%, rgba(120,255,120,0.35), transparent 55%);
       filter: blur(18px);
       opacity: calc(0.08 + (var(--glow) * 0.85));
-      transition: opacity 120ms linear;
-      z-index: -1;
-      pointer-events: none;
+      transition: opacity 120ms linear; z-index:-1; pointer-events:none;
     }
-
     .btn::after{
-      content:"";
-      position:absolute;
-      inset: -2px;
-      border-radius: 999px;
-      border: 1px solid rgba(120, 255, 255, calc(0.12 + var(--glow) * 0.35));
-      pointer-events: none;
+      content:""; position:absolute; inset:-2px; border-radius:999px;
+      border: 1px solid rgba(120,255,255, calc(0.12 + var(--glow) * 0.35)); pointer-events:none;
     }
-
-    .btn:hover{
-      border-color: rgba(255,255,255,0.25);
-      background: rgba(16, 16, 26, 0.78);
-    }
-
-    .spark{
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: rgba(150,255,255,0.95);
+    .btn:hover{ border-color: rgba(255,255,255,0.25); background: rgba(16,16,26,0.78); }
+    .spark{ width:10px;height:10px;border-radius:50%; background: rgba(150,255,255,0.95);
       box-shadow: 0 0 18px rgba(120,255,255,0.85);
-      opacity: calc(0.35 + var(--glow) * 0.65);
-      transition: opacity 120ms linear;
-    }
-
-    .sub{
-      display:block;
-      font-size: 12px;
-      font-weight: 650;
-      opacity: 0.78;
-      margin-top: 2px;
-    }
+      opacity: calc(0.35 + var(--glow) * 0.65); transition: opacity 120ms linear; flex:0 0 auto; }
+    .label{ display:block; font-size:16px; line-height:1.1; }
+    .sub{ display:block; font-size:12px; font-weight:650; opacity:0.78; margin-top:2px; }
   </style>
 </head>
-
 <body>
   <div class="wrap">
-    <a class="btn" id="magBtn" href="#" target="_top" rel="noopener">
+    <a class="btn" id="magBtn" href="#" rel="noopener">
       <span class="spark"></span>
       <span>
-        <span id="btnLabel">Explore</span>
-        <span class="sub" id="btnSub">Open section</span>
+        <span class="label" id="btnLabel">Demo</span>
+        <span class="sub" id="btnSub">Live Preview • Video</span>
       </span>
     </a>
   </div>
 
   <script>
-    // ========= CONFIG (EDIT THESE 3 LINES PER FILE) =========
     const LABEL = "Demo";
-const SUB   = "Live Preview • Video";
-const HREF  = "https://sites.google.com/view/seportfolioalastor/project/demo?authuser=0";
-
-    // =======================================================
+    const SUB   = "Live Preview • Video";
+    const HREF  = "https://sites.google.com/view/seportfolioalastor/demo"; // ✅ change if needed
 
     const btn = document.getElementById("magBtn");
     document.getElementById("btnLabel").textContent = LABEL;
     document.getElementById("btnSub").textContent = SUB;
-    btn.href = HREF;
 
-    const INFLUENCE_RADIUS = 220;
-    const MAX_PULL = 12;
-
-    let targetMx = 0, targetMy = 0, targetGlow = 0;
-    let mx = 0, my = 0, glow = 0;
-
-    const clamp = (v,a,b)=> Math.max(a, Math.min(b, v));
-
-    window.addEventListener("pointermove", (e) => {
-      const r = btn.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-
-      const dx = e.clientX - cx;
-      const dy = e.clientY - cy;
-      const dist = Math.hypot(dx, dy);
-
-      const t = 1 - clamp(dist / INFLUENCE_RADIUS, 0, 1);
-
-      targetGlow = clamp(t * 1.05, 0, 1);
-
-      const pull = t * MAX_PULL;
-      const ang = Math.atan2(dy, dx);
-      targetMx = Math.cos(ang) * pull;
-      targetMy = Math.sin(ang) * pull;
-    }, { passive: true });
-
-    window.addEventListener("pointerleave", () => {
-      targetMx = 0; targetMy = 0; targetGlow = 0;
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      try { window.top.location.href = HREF; return; } catch (err) {}
+      window.open(HREF, "_blank", "noopener,noreferrer");
     });
 
-    function animate(){
-      mx += (targetMx - mx) * 0.12;
-      my += (targetMy - my) * 0.12;
-      glow += (targetGlow - glow) * 0.14;
+    const INFLUENCE_RADIUS = 220, MAX_PULL = 12;
+    let targetMx=0, targetMy=0, targetGlow=0, mx=0, my=0, glow=0;
+    const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
-      document.documentElement.style.setProperty("--mx", mx.toFixed(2) + "px");
-      document.documentElement.style.setProperty("--my", my.toFixed(2) + "px");
+    window.addEventListener("pointermove",(e)=>{
+      const r=btn.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+      const dx=e.clientX-cx, dy=e.clientY-cy, dist=Math.hypot(dx,dy);
+      const t=1-clamp(dist/INFLUENCE_RADIUS,0,1);
+      targetGlow=clamp(t*1.05,0,1);
+      const pull=t*MAX_PULL, ang=Math.atan2(dy,dx);
+      targetMx=Math.cos(ang)*pull; targetMy=Math.sin(ang)*pull;
+    },{passive:true});
+
+    window.addEventListener("pointerleave",()=>{ targetMx=0; targetMy=0; targetGlow=0; });
+
+    (function animate(){
+      mx += (targetMx-mx)*0.12; my += (targetMy-my)*0.12; glow += (targetGlow-glow)*0.14;
+      document.documentElement.style.setProperty("--mx", mx.toFixed(2)+"px");
+      document.documentElement.style.setProperty("--my", my.toFixed(2)+"px");
       document.documentElement.style.setProperty("--glow", glow.toFixed(3));
-
       requestAnimationFrame(animate);
-    }
-    animate();
+    })();
   </script>
 </body>
 </html>
