@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Glowing Magnetic Button</title>
+  <style>
+    :root{
+      --bg: transparent;
+      --glow: 0;            /* 0..1 (set by JS) */
+      --mx: 0px;            /* magnetic x */
+      --my: 0px;            /* magnetic y */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+
+    /* Center wrapper so it looks like a standalone "widget" in Google Sites */
+    .wrap{
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .btn{
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      padding: 16px 26px;
+      border-radius: 999px;
+
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+
+      /* Base button look */
+      background: rgba(10, 10, 16, 0.75);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+
+      /* Magnetic shift */
+      transform: translate(calc(var(--mx) * 1), calc(var(--my) * 1));
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      will-change: transform, filter;
+
+      /* Soft shadow baseline */
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    /* Glowing aura (driven by --glow) */
+    .btn::before{
+      content:"";
+      position:absolute;
+      inset: -18px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(0,255,255,0.55), transparent 45%),
+        radial-gradient(circle at 70% 60%, rgba(255,0,255,0.50), transparent 48%),
+        radial-gradient(circle at 50% 50%, rgba(120,255,120,0.35), transparent 55%);
+      filter: blur(18px);
+      opacity: calc(0.08 + (var(--glow) * 0.85));
+      transition: opacity 120ms linear;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Inner glow ring */
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset: -2px;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 255, 255, calc(0.12 + var(--glow) * 0.35));
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .btn:hover{
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(16, 16, 26, 0.78);
+    }
+
+    .spark{
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(150,255,255,0.95);
+      box-shadow: 0 0 18px rgba(120,255,255,0.85);
+      opacity: calc(0.35 + var(--glow) * 0.65);
+      transition: opacity 120ms linear;
+    }
+
+    .sub{
+      display:block;
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.78;
+      margin-top: 2px;
+    }
+
+    /* Make it fit nicely when embedded */
+    @media (max-width: 420px){
+      .btn{ padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Change href + text to your needs -->
+    <a class="btn" id="magBtn" href="[PASTE_TARGET_LINK_HERE]" target="_top" rel="noopener">
+      <span class="spark"></span>
+      <span>
+        Explore Portfolio
+        <span class="sub">Projects • Case Studies • Demo</span>
+      </span>
+    </a>
+  </div>
+
+  <script>
+    const btn = document.getElementById("magBtn");
+
+    // Tuning knobs:
+    const INFLUENCE_RADIUS = 220;     // px radius where it starts reacting
+    const MAX_PULL = 12;             // max magnetic pull in px
+    const MAX_GLOW = 1;              // glow intensity cap
+
+    let targetMx = 0, targetMy = 0, targetGlow = 0;
+    let mx = 0, my = 0, glow = 0;
+
+    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+    window.addEventListener("pointermove", (e) => {
+      const r = btn.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.hypot(dx, dy);
+
+      const t = 1 - clamp(dist / INFLUENCE_RADIUS, 0, 1); // 0 far -> 1 close
+
+      // Glow rises as cursor approaches
+      targetGlow = clamp(t * 1.05, 0, MAX_GLOW);
+
+      // Magnetic pull (slight movement towards cursor)
+      const pull = t * MAX_PULL;
+      const ang = Math.atan2(dy, dx);
+      targetMx = Math.cos(ang) * pull;
+      targetMy = Math.sin(ang) * pull;
+    }, { passive: true });
+
+    window.addEventListener("pointerleave", () => {
+      targetMx = 0; targetMy = 0; targetGlow = 0;
+    });
+
+    function animate(){
+      // Smooth interpolation
+      mx += (targetMx - mx) * 0.12;
+      my += (targetMy - my) * 0.12;
+      glow += (targetGlow - glow) * 0.14;
+
+      document.documentElement.style.setProperty("--mx", mx.toFixed(2) + "px");
+      document.documentElement.style.setProperty("--my", my.toFixed(2) + "px");
+      document.documentElement.style.setProperty("--glow", glow.toFixed(3));
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
