@@ -3,62 +3,56 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Glowing Magnetic Button</title>
-
+  <title>Skills Button</title>
   <style>
-    :root{
-      --glow: 0;
-      --mx: 0px;
-      --my: 0px;
-    }
+    :root { --glow: 0; --mx: 0px; --my: 0px; }
 
-    /* ✅ Prevent scrollbars inside iframe */
     html, body{
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      overflow: hidden;
+      height:100%;
+      margin:0;
+      padding:0;
+      background:transparent;
+      overflow:hidden; /* ✅ remove scrollbar */
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
-
     .wrap{
-      height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 0;
-      overflow: hidden;
+      height:100vh;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
     }
 
     .btn{
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 26px;
-      border-radius: 999px;
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:16px 26px;
+      border-radius:999px;
 
-      color: #fff;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: 0.2px;
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:0.2px;
 
-      background: rgba(10, 10, 16, 0.75);
-      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(10,10,16,0.75);
+      border:1px solid rgba(255,255,255,0.14);
       backdrop-filter: blur(10px);
 
       transform: translate(var(--mx), var(--my));
       transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       will-change: transform;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn::before{
       content:"";
       position:absolute;
-      inset: -18px;
-      border-radius: 999px;
+      inset:-18px;
+      border-radius:999px;
       background:
         radial-gradient(circle at 30% 40%, rgba(0,255,255,0.55), transparent 45%),
         radial-gradient(circle at 70% 60%, rgba(255,0,255,0.50), transparent 48%),
@@ -66,65 +60,70 @@
       filter: blur(18px);
       opacity: calc(0.08 + (var(--glow) * 0.85));
       transition: opacity 120ms linear;
-      z-index: -1;
-      pointer-events: none;
+      z-index:-1;
+      pointer-events:none;
     }
 
     .btn::after{
       content:"";
       position:absolute;
-      inset: -2px;
-      border-radius: 999px;
-      border: 1px solid rgba(120, 255, 255, calc(0.12 + var(--glow) * 0.35));
-      pointer-events: none;
+      inset:-2px;
+      border-radius:999px;
+      border: 1px solid rgba(120,255,255, calc(0.12 + var(--glow) * 0.35));
+      pointer-events:none;
     }
 
     .btn:hover{
       border-color: rgba(255,255,255,0.25);
-      background: rgba(16, 16, 26, 0.78);
+      background: rgba(16,16,26,0.78);
     }
 
     .spark{
-      width: 10px; height: 10px;
-      border-radius: 50%;
+      width:10px;height:10px;
+      border-radius:50%;
       background: rgba(150,255,255,0.95);
       box-shadow: 0 0 18px rgba(120,255,255,0.85);
       opacity: calc(0.35 + var(--glow) * 0.65);
       transition: opacity 120ms linear;
+      flex:0 0 auto;
     }
-
+    .label{ display:block; font-size:16px; line-height:1.1; }
     .sub{
       display:block;
-      font-size: 12px;
-      font-weight: 650;
-      opacity: 0.78;
-      margin-top: 2px;
+      font-size:12px;
+      font-weight:650;
+      opacity:0.78;
+      margin-top:2px;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <a class="btn" id="magBtn" href="#" target="_top" rel="noopener">
+    <a class="btn" id="magBtn" href="#" rel="noopener">
       <span class="spark"></span>
       <span>
-        <span id="btnLabel">Explore</span>
-        <span class="sub" id="btnSub">Open section</span>
+        <span class="label" id="btnLabel">Skills</span>
+        <span class="sub" id="btnSub">Tools • Tech • Proof</span>
       </span>
     </a>
   </div>
 
   <script>
-    // ========= CONFIG (EDIT THESE 3 LINES PER FILE) =========
     const LABEL = "Skills";
     const SUB   = "Tools • Tech • Proof";
-    const HREF  = "https://sites.google.com/view/seportfolioalastor/skills?authuser=0";
-    // =======================================================
+    const HREF  = "https://sites.google.com/view/seportfolioalastor/skills"; // ✅ change if needed
 
     const btn = document.getElementById("magBtn");
     document.getElementById("btnLabel").textContent = LABEL;
     document.getElementById("btnSub").textContent = SUB;
-    btn.href = HREF;
+
+    // ✅ Works inside Google Sites iframe: try same-tab, else new tab
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      try { window.top.location.href = HREF; return; } catch (err) {}
+      window.open(HREF, "_blank", "noopener,noreferrer");
+    });
 
     const INFLUENCE_RADIUS = 220;
     const MAX_PULL = 12;
@@ -165,13 +164,9 @@
       document.documentElement.style.setProperty("--mx", mx.toFixed(2) + "px");
       document.documentElement.style.setProperty("--my", my.toFixed(2) + "px");
       document.documentElement.style.setProperty("--glow", glow.toFixed(3));
-
       requestAnimationFrame(animate);
     }
     animate();
   </script>
 </body>
 </html>
-
-
-
