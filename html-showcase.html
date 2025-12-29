@@ -3,166 +3,143 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Codes (Copy Ready)</title>
+  <title>HTML Codes — Copy Ready</title>
 
   <style>
     :root{
-      --bg: #f6f7fb;
-      --card: rgba(255,255,255,0.86);
-      --stroke: rgba(16,24,40,0.10);
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --border: rgba(17,24,39,0.12);
       --text: #111827;
       --muted: rgba(17,24,39,0.65);
       --codebg: #0b1220;
-      --accent: #2563eb;
-      --shadow: 0 18px 48px rgba(16,24,40,0.12);
-      --radius: 18px;
+      --codefg: #e5e7eb;
+      --btn: #2563eb;
+      --btnHover: #1d4ed8;
+      --radius: 14px;
     }
 
-    /* Prevent iframe scrollbars; internal scroll is inside .scroll */
     html, body{
-      height: 100%;
-      margin: 0;
+      height:100%;
+      margin:0;
       background: transparent;
-      overflow: hidden;
+      overflow:hidden; /* ✅ no outer scrollbar in iframe */
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: var(--text);
     }
 
     .page{
-      height: 100vh;
-      background: radial-gradient(900px 500px at 20% 5%, rgba(37,99,235,0.12), transparent 55%),
-                  radial-gradient(900px 500px at 90% 35%, rgba(99,102,241,0.10), transparent 60%),
-                  linear-gradient(180deg, var(--bg), #ffffff);
-      padding: 26px 18px;
-      box-sizing: border-box;
+      height:100vh;
+      box-sizing:border-box;
+      padding: 18px;
+      background: linear-gradient(180deg, var(--bg), #fff);
+      overflow:hidden; /* keep scroll only inside .list */
     }
 
     .wrap{
-      max-width: 1120px;
-      height: calc(100vh - 52px);
+      max-width: 1050px;
+      height:100%;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      min-height:0;
     }
 
-    .hero{
+    .top{
       background: var(--card);
-      border: 1px solid var(--stroke);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px 18px;
-      backdrop-filter: blur(10px);
+      padding: 14px 16px;
     }
 
-    .hero h1{
+    .top h1{
       margin: 0;
-      font-size: 20px;
+      font-size: 18px;
       letter-spacing: 0.2px;
     }
 
-    .hero p{
+    .top p{
       margin: 6px 0 0;
       font-size: 13px;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    .scroll{
+    .list{
       flex: 1;
       min-height: 0;
-      overflow: auto;
+      overflow:auto; /* ✅ scroll here */
       padding-right: 6px;
-    }
-
-    .grid{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      padding-bottom: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
     }
 
     .card{
       background: var(--card);
-      border: 1px solid var(--stroke);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(10px);
+      overflow:hidden;
     }
 
     .head{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap: 10px;
-      padding: 14px 14px 12px;
-      border-bottom: 1px solid rgba(16,24,40,0.08);
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(17,24,39,0.08);
     }
 
     .title{
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
     }
 
     .title b{
       font-size: 14px;
-      letter-spacing: 0.2px;
     }
 
     .title span{
       font-size: 12px;
       color: var(--muted);
-      line-height: 1.3;
     }
 
-    .btn{
-      cursor: pointer;
-      border: 0;
-      background: var(--accent);
-      color: #fff;
+    button.copy{
+      cursor:pointer;
+      border: none;
+      background: var(--btn);
+      color:#fff;
       font-weight: 700;
       font-size: 12px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      box-shadow: 0 10px 22px rgba(37,99,235,0.25);
-      transition: transform 140ms ease, filter 140ms ease;
-      user-select: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      transition: background 140ms ease, transform 140ms ease;
+      white-space:nowrap;
     }
+    button.copy:hover{ background: var(--btnHover); transform: translateY(-1px); }
+    button.copy:active{ transform: translateY(0px) scale(0.98); }
 
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
-    .btn:active{ transform: translateY(0px) scale(0.98); }
-
-    .dot{
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.18);
-    }
-
-    .code{
+    pre{
+      margin: 0;
+      padding: 12px;
       background: var(--codebg);
-      color: #e5e7eb;
-      padding: 14px;
-      overflow: auto;
+      color: var(--codefg);
+      overflow:auto;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 12.5px;
       line-height: 1.6;
       white-space: pre;
     }
 
-    /* Toast */
     .toast{
       position: fixed;
       right: 16px;
       bottom: 16px;
       background: rgba(17,24,39,0.92);
-      color: #fff;
+      color:#fff;
       padding: 10px 12px;
       border-radius: 12px;
       font-size: 12px;
@@ -170,17 +147,11 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 160ms ease, transform 160ms ease;
-      pointer-events: none;
-      box-shadow: 0 16px 50px rgba(0,0,0,0.22);
+      pointer-events:none;
     }
     .toast.show{
       opacity: 1;
       transform: translateY(0);
-    }
-
-    @media (max-width: 520px){
-      .btn{ padding: 9px 12px; }
-      .hero h1{ font-size: 18px; }
     }
   </style>
 </head>
@@ -188,16 +159,12 @@
 <body>
   <div class="page">
     <div class="wrap">
-
-      <div class="hero">
+      <div class="top">
         <h1>HTML Programs — Copy Ready</h1>
-        <p>Each section contains the HTML code and a Copy button. Click Copy to copy the full snippet instantly.</p>
+        <p>Click <b>Copy</b> to copy the full snippet. Scroll to view all programs.</p>
       </div>
 
-      <div class="scroll">
-        <div class="grid" id="grid"></div>
-      </div>
-
+      <div class="list" id="list"></div>
     </div>
   </div>
 
@@ -242,7 +209,6 @@
 </body>
 </html>`
       },
-
       {
         title: "Forms and Input Elements",
         subtitle: "input • textarea • fieldset • legend",
@@ -274,7 +240,6 @@
 </body>
 </html>`
       },
-
       {
         title: "Multimedia Elements",
         subtitle: "img • audio • video",
@@ -307,7 +272,6 @@
 </body>
 </html>`
       },
-
       {
         title: "HTML Structure and Layout",
         subtitle: "div • layout • external css/js",
@@ -343,7 +307,6 @@
 </body>
 </html>`
       },
-
       {
         title: "Tables and Lists",
         subtitle: "table • thead • tbody • ul • ol",
@@ -394,7 +357,6 @@
 </body>
 </html>`
       },
-
       {
         title: "Metadata and SEO",
         subtitle: "meta description • keywords • robots",
@@ -422,7 +384,6 @@
 </body>
 </html>`
       },
-
       {
         title: "Best Practices",
         subtitle: "indentation • comments • maintainability",
@@ -448,14 +409,14 @@
       },
     ];
 
-    const grid = document.getElementById("grid");
+    const list = document.getElementById("list");
     const toast = document.getElementById("toast");
 
-    function showToast(text){
-      toast.textContent = text;
+    function showToast(msg){
+      toast.textContent = msg;
       toast.classList.add("show");
       clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove("show"), 1000);
+      showToast._t = setTimeout(() => toast.classList.remove("show"), 900);
     }
 
     async function copyText(text){
@@ -473,37 +434,39 @@
       }
     }
 
-    function makeCard(snip, idx){
-      const card = document.createElement("div");
-      card.className = "card";
+    function render(){
+      list.innerHTML = "";
+      SNIPPETS.forEach((s) => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-      const head = document.createElement("div");
-      head.className = "head";
+        const head = document.createElement("div");
+        head.className = "head";
 
-      const title = document.createElement("div");
-      title.className = "title";
-      title.innerHTML = `<b>${snip.title}</b><span>${snip.subtitle}</span>`;
+        const title = document.createElement("div");
+        title.className = "title";
+        title.innerHTML = `<b>${s.title}</b><span>${s.subtitle}</span>`;
 
-      const btn = document.createElement("button");
-      btn.className = "btn";
-      btn.type = "button";
-      btn.innerHTML = `<span class="dot"></span> Copy`;
-      btn.onclick = () => copyText(snip.code);
+        const btn = document.createElement("button");
+        btn.className = "copy";
+        btn.type = "button";
+        btn.textContent = "Copy";
+        btn.onclick = () => copyText(s.code);
 
-      head.appendChild(title);
-      head.appendChild(btn);
+        head.appendChild(title);
+        head.appendChild(btn);
 
-      const pre = document.createElement("pre");
-      pre.className = "code";
-      pre.textContent = snip.code;
+        const pre = document.createElement("pre");
+        pre.textContent = s.code;
 
-      card.appendChild(head);
-      card.appendChild(pre);
+        card.appendChild(head);
+        card.appendChild(pre);
 
-      return card;
+        list.appendChild(card);
+      });
     }
 
-    SNIPPETS.forEach((s, i) => grid.appendChild(makeCard(s, i)));
+    render();
   </script>
 </body>
 </html>
