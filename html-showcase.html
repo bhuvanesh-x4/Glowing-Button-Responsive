@@ -2,487 +2,213 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>HTML Learnings Showcase</title>
-
-  <!-- Prism (syntax highlighting) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Codes (Copy Ready)</title>
 
   <style>
     :root{
-      --bg0:#070A12;
-      --bg1:#0b0f22;
-      --glass: rgba(255,255,255,0.08);
-      --stroke: rgba(255,255,255,0.12);
-
-      --c1:#00E5FF;
-      --c2:#B14CFF;
-      --c3:#7CFFB2;
-      --text:#EAF0FF;
-      --muted:rgba(234,240,255,0.72);
-      --muted2:rgba(234,240,255,0.55);
-
-      --shadow: 0 20px 60px rgba(0,0,0,0.45);
-      --radius: 22px;
+      --bg: #f6f7fb;
+      --card: rgba(255,255,255,0.86);
+      --stroke: rgba(16,24,40,0.10);
+      --text: #111827;
+      --muted: rgba(17,24,39,0.65);
+      --codebg: #0b1220;
+      --accent: #2563eb;
+      --shadow: 0 18px 48px rgba(16,24,40,0.12);
+      --radius: 18px;
     }
 
-    /* No iframe scrollbars from body */
+    /* Prevent iframe scrollbars; internal scroll is inside .scroll */
     html, body{
-      height:100%;
-      margin:0;
+      height: 100%;
+      margin: 0;
       background: transparent;
-      overflow:hidden;
-      color:var(--text);
+      overflow: hidden;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
     }
 
-    .stage{
-      height:100vh;
-      width:100%;
-      position:relative;
-      overflow:hidden;
-      background:
-        radial-gradient(1200px 700px at 12% 20%, rgba(0,229,255,0.12), transparent 55%),
-        radial-gradient(900px 650px at 78% 28%, rgba(177,76,255,0.13), transparent 58%),
-        radial-gradient(900px 650px at 48% 86%, rgba(124,255,178,0.08), transparent 56%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-    }
-
-    /* Animated background glow blobs */
-    .stage::before{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background:
-        radial-gradient(circle at 25% 30%, rgba(0,229,255,0.10), transparent 35%),
-        radial-gradient(circle at 70% 40%, rgba(177,76,255,0.10), transparent 38%),
-        radial-gradient(circle at 52% 74%, rgba(124,255,178,0.08), transparent 40%);
-      filter: blur(40px);
-      animation: floatGlow 10s ease-in-out infinite alternate;
-      pointer-events:none;
-      opacity:0.9;
-    }
-
-    /* Subtle scanline overlay */
-    .scan{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.02) 0px,
-        rgba(255,255,255,0.02) 1px,
-        rgba(0,0,0,0.00) 4px,
-        rgba(0,0,0,0.00) 8px
-      );
-      mix-blend-mode: overlay;
-      opacity:0.18;
-    }
-
-    @keyframes floatGlow{
-      0%   { transform: translate3d(-1.2%, -0.8%, 0) scale(1.03); }
-      100% { transform: translate3d( 1.2%,  0.8%, 0) scale(1.08); }
+    .page{
+      height: 100vh;
+      background: radial-gradient(900px 500px at 20% 5%, rgba(37,99,235,0.12), transparent 55%),
+                  radial-gradient(900px 500px at 90% 35%, rgba(99,102,241,0.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg), #ffffff);
+      padding: 26px 18px;
+      box-sizing: border-box;
     }
 
     .wrap{
-      position:relative;
-      max-width: 1180px;
-      height: 100vh;
+      max-width: 1120px;
+      height: calc(100vh - 52px);
       margin: 0 auto;
-      padding: 26px 18px;
-      display:flex;
-      flex-direction:column;
-      gap: 16px;
-      box-sizing:border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    /* Header */
     .hero{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 18px;
-      padding: 18px 18px 12px;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      background: var(--card);
       border: 1px solid var(--stroke);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
+      padding: 18px 18px;
+      backdrop-filter: blur(10px);
     }
 
     .hero h1{
-      margin:0;
-      font-size: 26px;
-      letter-spacing: 0.3px;
-      line-height: 1.15;
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.2px;
     }
 
     .hero p{
       margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 720px;
-    }
-
-    .hero .chips{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .chip{
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: rgba(234,240,255,0.9);
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.18);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      white-space:nowrap;
-    }
-    .chip b{ color: #fff; }
-
-    /* Main grid */
-    .grid{
-      flex: 1;
-      min-height: 0; /* allow inner scrolling */
-      display:grid;
-      grid-template-columns: 310px 1fr;
-      gap: 16px;
-    }
-
-    .panel{
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      min-height: 0; /* allow scroll children */
-      overflow:hidden;
-    }
-
-    /* Left sidebar */
-    .side{
-      display:flex;
-      flex-direction:column;
-    }
-
-    .search{
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-    }
-
-    .search input{
-      width:100%;
-      box-sizing:border-box;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.20);
-      color: #fff;
-      outline:none;
-    }
-    .search input::placeholder{ color: rgba(255,255,255,0.45); }
-
-    .topics{
-      padding: 10px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      overflow:auto;
-    }
-
-    .topic{
-      cursor:pointer;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.12);
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
-    }
-    .topic:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.16);
-    }
-    .topic.active{
-      background: linear-gradient(135deg, rgba(0,229,255,0.14), rgba(177,76,255,0.10), rgba(124,255,178,0.08));
-      border-color: rgba(255,255,255,0.18);
-    }
-    .topic .t{
-      font-weight: 800;
-      font-size: 14px;
-      margin:0;
-    }
-    .topic .d{
-      margin: 6px 0 0;
-      font-size: 12px;
-      color: var(--muted2);
-      line-height: 1.35;
-    }
-
-    /* Right content */
-    .main{
-      display:flex;
-      flex-direction:column;
-      min-height:0;
-    }
-
-    .mainHead{
-      padding: 16px 16px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-    }
-
-    .mainHead h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: 0.2px;
-    }
-    .mainHead .sub{
-      margin: 6px 0 0;
       font-size: 13px;
       color: var(--muted);
-      max-width: 760px;
+      line-height: 1.55;
     }
 
-    .actions{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      justify-content:flex-end;
-      flex-wrap:wrap;
+    .scroll{
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding-right: 6px;
     }
 
-    .btn{
-      cursor:pointer;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(0,0,0,0.22);
-      color:#fff;
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 12px;
-      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.22);
-      background: rgba(0,0,0,0.28);
-    }
-
-    .spark{
-      width:10px;height:10px;border-radius:50%;
-      background: rgba(0,229,255,0.9);
-      box-shadow: 0 0 18px rgba(0,229,255,0.55);
-      opacity:0.8;
-    }
-
-    .content{
-      display:grid;
+    .grid{
+      display: grid;
       grid-template-columns: 1fr;
       gap: 14px;
-      padding: 14px 16px 18px;
-      overflow:auto;
-      min-height:0;
+      padding-bottom: 18px;
     }
 
     .card{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.16);
-      overflow:hidden;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
     }
 
-    .card .cardHead{
-      padding: 12px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .head{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid rgba(16,24,40,0.08);
     }
 
-    .miniTitle{
-      font-weight: 800;
-      font-size: 13px;
-      color: rgba(255,255,255,0.95);
+    .title{
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    .copy{
-      cursor:pointer;
-      padding: 9px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(0,0,0,0.28);
-      color:#fff;
-      font-weight: 800;
+    .title b{
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    .title span{
       font-size: 12px;
-      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      user-select:none;
-    }
-    .copy:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.22);
-      background: rgba(0,0,0,0.34);
-    }
-
-    .copyDot{
-      width: 9px; height: 9px; border-radius: 50%;
-      background: rgba(177,76,255,0.9);
-      box-shadow: 0 0 18px rgba(177,76,255,0.55);
-      opacity:0.85;
-    }
-
-    .bullets{
-      padding: 14px 14px 0;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.3;
     }
-    .bullets ul{ margin: 0; padding-left: 18px; }
-    .bullets li{ margin: 6px 0; }
 
-    /* Code area */
-    pre{
-      margin: 0;
-      max-height: 420px;
-      overflow:auto;
-      border-radius: 0;
+    .btn{
+      cursor: pointer;
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(37,99,235,0.25);
+      transition: transform 140ms ease, filter 140ms ease;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-    code{
-      font-size: 12.5px !important;
-      line-height: 1.55 !important;
+
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active{ transform: translateY(0px) scale(0.98); }
+
+    .dot{
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.18);
+    }
+
+    .code{
+      background: var(--codebg);
+      color: #e5e7eb;
+      padding: 14px;
+      overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+      white-space: pre;
     }
 
     /* Toast */
     .toast{
       position: fixed;
-      right: 18px;
-      bottom: 18px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(0,0,0,0.55);
-      color:#fff;
-      font-weight: 800;
+      right: 16px;
+      bottom: 16px;
+      background: rgba(17,24,39,0.92);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 12px;
       font-size: 12px;
-      box-shadow: var(--shadow);
-      opacity:0;
+      font-weight: 700;
+      opacity: 0;
       transform: translateY(10px);
-      transition: opacity 200ms ease, transform 200ms ease;
-      pointer-events:none;
+      transition: opacity 160ms ease, transform 160ms ease;
+      pointer-events: none;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.22);
     }
     .toast.show{
-      opacity:1;
-      transform: translateY(0px);
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-      .hero{ align-items:flex-start; flex-direction:column; }
-      pre{ max-height: 360px; }
+    @media (max-width: 520px){
+      .btn{ padding: 9px 12px; }
+      .hero h1{ font-size: 18px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="stage">
-    <div class="scan"></div>
-
+  <div class="page">
     <div class="wrap">
+
       <div class="hero">
-        <div>
-          <h1>HTML Learnings — Interactive Notes</h1>
-          <p>
-            A premium, copy-ready reference of core HTML concepts with clean explanations and highlighted code.
-            Use the left panel to switch topics, search instantly, and copy code with one click.
-          </p>
-        </div>
-        <div class="chips">
-          <div class="chip"><b>Semantic</b> Structure</div>
-          <div class="chip"><b>Forms</b> & Validation</div>
-          <div class="chip"><b>Media</b> Embeds</div>
-          <div class="chip"><b>SEO</b> Meta</div>
-        </div>
+        <h1>HTML Programs — Copy Ready</h1>
+        <p>Each section contains the HTML code and a Copy button. Click Copy to copy the full snippet instantly.</p>
       </div>
 
-      <div class="grid">
-        <!-- Left -->
-        <div class="panel side">
-          <div class="search">
-            <input id="q" placeholder="Search topics (e.g., forms, tables, seo)..." />
-          </div>
-          <div class="topics" id="topics"></div>
-        </div>
-
-        <!-- Right -->
-        <div class="panel main">
-          <div class="mainHead">
-            <div>
-              <h2 id="title">Title</h2>
-              <div class="sub" id="desc">Description</div>
-            </div>
-            <div class="actions">
-              <div class="btn" id="copyAll"><span class="spark"></span>Copy Full Code</div>
-              <div class="btn" id="copyNotes"><span class="spark"></span>Copy Notes</div>
-            </div>
-          </div>
-
-          <div class="content">
-            <div class="card">
-              <div class="cardHead">
-                <div class="miniTitle">Key Points</div>
-              </div>
-              <div class="bullets" id="bullets"></div>
-            </div>
-
-            <div class="card">
-              <div class="cardHead">
-                <div class="miniTitle">Example Code</div>
-                <div class="copy" id="copyBtn"><span class="copyDot"></span>Copy</div>
-              </div>
-
-              <pre class="language-html"><code id="code" class="language-html"></code></pre>
-            </div>
-          </div>
-        </div>
+      <div class="scroll">
+        <div class="grid" id="grid"></div>
       </div>
 
-      <div class="toast" id="toast">Copied ✅</div>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+  <div class="toast" id="toast">Copied ✅</div>
 
   <script>
-    const TOPICS = [
+    const SNIPPETS = [
       {
-        key: "semantic",
         title: "Semantic HTML",
-        short: "header • nav • section • article • footer",
-        desc: "Use semantic elements to improve readability, accessibility, and SEO. This structure makes your page meaningful for browsers and screen readers.",
-        bullets: [
-          "Use <header>, <nav>, <section>, <article>, and <footer> for clear structure.",
-          "Keep headings in logical order: h1 → h2 → h3.",
-          "Write meaningful link text (avoid 'click here').",
-          "Helps accessibility tools and improves SEO."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "header • nav • section • article • footer",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -493,11 +219,12 @@
 <body>
   <header>
     <h1>My Web Page</h1>
+
     <nav>
       <ul>
-        <li><a href="#lion">Lion</a></li>
-        <li><a href="#tiger">Tiger</a></li>
-        <li><a href="#leopard">Leopard</a></li>
+        <li><a href="#your-link">Lion</a></li>
+        <li><a href="#your-link">Tiger</a></li>
+        <li><a href="#your-link">Leopard</a></li>
       </ul>
     </nav>
   </header>
@@ -505,7 +232,7 @@
   <section>
     <article>
       <h2>Article Title</h2>
-      <p>This article section contains the animal images.</p>
+      <p>This is an article section which contains the animal images.</p>
     </article>
   </section>
 
@@ -517,18 +244,9 @@
       },
 
       {
-        key: "forms",
         title: "Forms and Input Elements",
-        short: "input • select • textarea • button",
-        desc: "Design forms using correct input types and grouping. This improves validation, usability, and accessibility.",
-        bullets: [
-          "Use input types like text/email/date for better browser validation.",
-          "Always pair <label> with inputs using for/id.",
-          "Group related controls using <fieldset> and <legend>.",
-          "Use required/minlength/maxlength where appropriate."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "input • textarea • fieldset • legend",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -558,18 +276,9 @@
       },
 
       {
-        key: "media",
         title: "Multimedia Elements",
-        short: "img • audio • video • picture • srcset",
-        desc: "Embed images, audio, and video properly. Use responsive image techniques for performance.",
-        bullets: [
-          "Always include alt text for images.",
-          "Use <audio controls> and <video controls> for accessible playback.",
-          "Use <picture> + srcset for responsive images on different devices.",
-          "Prefer compressed media for faster loading."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "img • audio • video",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -600,24 +309,14 @@
       },
 
       {
-        key: "layout",
         title: "HTML Structure and Layout",
-        short: "div • span • external css/js",
-        desc: "Create clean layouts using containers and modern CSS approaches (Grid/Flex). Link external files correctly.",
-        bullets: [
-          "Use semantic containers when possible, and <div> when needed.",
-          "Use class names that describe purpose, not appearance.",
-          "Link external CSS using <link> and JS using <script>.",
-          "Use CSS Grid / Flexbox for responsive layouts."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "div • layout • external css/js",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Layout and External Resources</title>
-  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -639,24 +338,16 @@
     <p>&copy; 2024 Your Company</p>
   </footer>
 
+  <link rel="stylesheet" href="styles.css" />
   <script src="script.js"></script>
 </body>
 </html>`
       },
 
       {
-        key: "tables",
         title: "Tables and Lists",
-        short: "table • thead • tbody • ul • ol",
-        desc: "Tables store structured data. Lists organize items and steps clearly.",
-        bullets: [
-          "Use <thead> and <tbody> for table structure.",
-          "Use <th> for headings and <td> for data.",
-          "Use <ul> for unordered and <ol> for ordered steps.",
-          "Avoid tables for page layout (use CSS instead)."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "table • thead • tbody • ul • ol",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -666,6 +357,7 @@
 
 <body>
   <h2>Table Example</h2>
+
   <table border="1">
     <thead>
       <tr>
@@ -673,6 +365,7 @@
         <th>Price</th>
       </tr>
     </thead>
+
     <tbody>
       <tr>
         <td>Apple</td>
@@ -686,6 +379,7 @@
   </table>
 
   <h2>List Example</h2>
+
   <ul>
     <li>HTML</li>
     <li>CSS</li>
@@ -702,25 +396,22 @@
       },
 
       {
-        key: "seo",
         title: "Metadata and SEO",
-        short: "meta description • keywords • robots",
-        desc: "Use meta tags to help search engines understand your page and improve visibility.",
-        bullets: [
-          "Add meta description for better preview snippets.",
-          "Use viewport meta for responsive behavior.",
-          "Use robots meta when needed (index/follow).",
-          "Keep title short and meaningful."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "meta description • keywords • robots",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta name="description" content="Learn web development with hands-on examples in HTML, CSS, and JavaScript." />
-  <meta name="keywords" content="HTML, CSS, JavaScript, web development, tutorials" />
+  <meta
+    name="description"
+    content="Learn web development with hands-on examples in HTML, CSS, and JavaScript."
+  />
+  <meta
+    name="keywords"
+    content="HTML, CSS, JavaScript, web development, tutorials"
+  />
   <meta name="robots" content="index, follow" />
 
   <title>SEO Example</title>
@@ -733,18 +424,9 @@
       },
 
       {
-        key: "best",
         title: "Best Practices",
-        short: "indentation • comments • maintainability",
-        desc: "Write maintainable HTML using clean indentation, meaningful names, and helpful comments.",
-        bullets: [
-          "Indent consistently for readability.",
-          "Use comments to explain complex parts (not obvious code).",
-          "Keep HTML clean and semantic.",
-          "Avoid repeated inline styles; move them to CSS."
-        ],
-        code:
-`<!DOCTYPE html>
+        subtitle: "indentation • comments • maintainability",
+        code: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -755,7 +437,7 @@
 <body>
   <h1>Best Practices for Writing HTML</h1>
 
-  <!-- This comment explains why the section exists -->
+  <!-- This is a simple comment -->
   <p>Follow best practices by writing clean, maintainable code.</p>
 
   <div>
@@ -766,98 +448,62 @@
       },
     ];
 
-    const elTopics = document.getElementById("topics");
-    const elQ = document.getElementById("q");
-
-    const elTitle = document.getElementById("title");
-    const elDesc = document.getElementById("desc");
-    const elBullets = document.getElementById("bullets");
-    const elCode = document.getElementById("code");
+    const grid = document.getElementById("grid");
     const toast = document.getElementById("toast");
 
-    const copyBtn = document.getElementById("copyBtn");
-    const copyAll = document.getElementById("copyAll");
-    const copyNotes = document.getElementById("copyNotes");
-
-    let current = TOPICS[0];
-
-    function showToast(msg="Copied ✅"){
-      toast.textContent = msg;
+    function showToast(text){
+      toast.textContent = text;
       toast.classList.add("show");
       clearTimeout(showToast._t);
-      showToast._t = setTimeout(()=> toast.classList.remove("show"), 1100);
+      showToast._t = setTimeout(() => toast.classList.remove("show"), 1000);
     }
 
-    async function copyText(text, msg){
+    async function copyText(text){
       try{
         await navigator.clipboard.writeText(text);
-        showToast(msg);
+        showToast("Copied ✅");
       }catch(e){
-        // fallback
         const ta = document.createElement("textarea");
         ta.value = text;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand("copy");
         ta.remove();
-        showToast(msg);
+        showToast("Copied ✅");
       }
     }
 
-    function renderTopics(filter=""){
-      elTopics.innerHTML = "";
-      const f = filter.trim().toLowerCase();
+    function makeCard(snip, idx){
+      const card = document.createElement("div");
+      card.className = "card";
 
-      const list = TOPICS.filter(t =>
-        !f ||
-        t.title.toLowerCase().includes(f) ||
-        t.short.toLowerCase().includes(f) ||
-        t.desc.toLowerCase().includes(f) ||
-        t.bullets.join(" ").toLowerCase().includes(f)
-      );
+      const head = document.createElement("div");
+      head.className = "head";
 
-      list.forEach(t => {
-        const div = document.createElement("div");
-        div.className = "topic" + (t.key === current.key ? " active" : "");
-        div.innerHTML = `<div class="t">${t.title}</div><div class="d">${t.short}</div>`;
-        div.onclick = () => selectTopic(t.key);
-        elTopics.appendChild(div);
-      });
+      const title = document.createElement("div");
+      title.className = "title";
+      title.innerHTML = `<b>${snip.title}</b><span>${snip.subtitle}</span>`;
 
-      if(!list.length){
-        const empty = document.createElement("div");
-        empty.className = "topic";
-        empty.innerHTML = `<div class="t">No results</div><div class="d">Try searching “forms”, “seo”, “tables”…</div>`;
-        elTopics.appendChild(empty);
-      }
+      const btn = document.createElement("button");
+      btn.className = "btn";
+      btn.type = "button";
+      btn.innerHTML = `<span class="dot"></span> Copy`;
+      btn.onclick = () => copyText(snip.code);
+
+      head.appendChild(title);
+      head.appendChild(btn);
+
+      const pre = document.createElement("pre");
+      pre.className = "code";
+      pre.textContent = snip.code;
+
+      card.appendChild(head);
+      card.appendChild(pre);
+
+      return card;
     }
 
-    function selectTopic(key){
-      const t = TOPICS.find(x => x.key === key) || TOPICS[0];
-      current = t;
-
-      elTitle.textContent = t.title;
-      elDesc.textContent = t.desc;
-
-      elBullets.innerHTML = `<ul>${t.bullets.map(b=> `<li>${b}</li>`).join("")}</ul>`;
-
-      elCode.textContent = t.code;
-
-      Prism.highlightAll();
-      renderTopics(elQ.value);
-    }
-
-    copyBtn.onclick = () => copyText(current.code, "Code copied ✅");
-    copyAll.onclick = () => copyText(current.code, "Full code copied ✅");
-    copyNotes.onclick = () => copyText(
-      `${current.title}\n\n${current.desc}\n\nKey Points:\n- ${current.bullets.join("\n- ")}\n`,
-      "Notes copied ✅"
-    );
-
-    elQ.addEventListener("input", () => renderTopics(elQ.value));
-
-    // init
-    selectTopic(TOPICS[0].key);
+    SNIPPETS.forEach((s, i) => grid.appendChild(makeCard(s, i)));
   </script>
 </body>
 </html>
