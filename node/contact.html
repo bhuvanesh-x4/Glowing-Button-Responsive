@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact — Minimal</title>
+  <title>Socials — Minimal</title>
 
   <style>
     :root{
@@ -12,7 +12,6 @@
       --border:rgba(17,24,39,.12);
       --text:#0f172a;
       --muted:rgba(15,23,42,.62);
-      --code:#0b1220;
 
       --accent:#2563eb;
       --accent2:#7c3aed;
@@ -98,15 +97,12 @@
       color: var(--muted);
     }
 
-    /* CONTACT TILES */
-    .tiles{
+    /* STACKED CONTACT LIST (GMAIL + PHONE under it) */
+    .list{
       padding: 14px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
+      display:flex;
+      flex-direction:column;
       gap: 12px;
-    }
-    @media (max-width: 520px){
-      .tiles{ grid-template-columns: 1fr; }
     }
 
     .tile{
@@ -116,8 +112,7 @@
       display:flex;
       align-items:center;
       gap: 12px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
       transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
       min-width: 0;
     }
@@ -151,17 +146,17 @@
     .info small{
       font-size: 12px;
       color: var(--muted);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .value{
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 950;
       text-decoration:none;
       color: var(--text);
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis; /* fixes overlap */
+      text-overflow: ellipsis; /* ensures no overlap */
       max-width: 100%;
       display:block;
     }
@@ -177,9 +172,9 @@
       border:none;
       border-radius: 12px;
       padding: 9px 10px;
-      font-weight: 900;
+      font-weight: 950;
       font-size: 12px;
-      transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
       white-space: nowrap;
     }
 
@@ -219,7 +214,7 @@
     label{
       font-size: 12px;
       color: var(--muted);
-      font-weight: 800;
+      font-weight: 900;
       display:block;
       margin: 0 0 6px;
     }
@@ -266,7 +261,7 @@
       padding: 10px 12px;
       border-radius: 14px;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 950;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 160ms ease, transform 160ms ease;
@@ -280,12 +275,13 @@
   <div class="wrap">
 
     <div class="hero">
-      <h2>SocialS</h2>
-         </div>
+      <h2>Socials</h2>
+      
+    </div>
 
     <div class="grid">
 
-      <!-- LEFT: Tiles -->
+      <!-- LEFT: Stacked Gmail then Phone -->
       <section class="panel">
         <div class="panelHead">
           <div>
@@ -294,7 +290,7 @@
           </div>
         </div>
 
-        <div class="tiles">
+        <div class="list">
           <!-- Gmail -->
           <div class="tile">
             <div class="icon" aria-hidden="true">
@@ -315,7 +311,7 @@
             </div>
           </div>
 
-          <!-- Phone -->
+          <!-- Phone (below Gmail) -->
           <div class="tile">
             <div class="icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -401,7 +397,7 @@
       btn.addEventListener("click", ()=> copyText(btn.getAttribute("data-copy")));
     });
 
-    // Form -> opens Gmail compose (mailto) with prefilled details (best for Google Sites embed)
+    // Form -> opens mail client (mailto) with prefilled details (best for Google Sites embed)
     document.getElementById("queryForm").addEventListener("submit", (e)=>{
       e.preventDefault();
 
