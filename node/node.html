@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Node + Express + WampServer + MySQL — Copy Ready</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --border:rgba(17,24,39,.12);
+      --text:#111827;
+      --muted:rgba(17,24,39,.65);
+      --codebg:#0b1220;
+      --codefg:#e5e7eb;
+      --btn:#2563eb;
+      --btnHover:#1d4ed8;
+      --radius:14px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    html, body{
+      height:100%;
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background: linear-gradient(180deg, var(--bg), #fff);
+    }
+
+    .wrap{
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .top{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .top h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+
+    .top p{
+      margin:6px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow:hidden;
+      margin: 12px 0;
+    }
+
+    .head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(17,24,39,0.08);
+    }
+
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .title b{ font-size:14px; }
+    .title span{ font-size:12px; color:var(--muted); }
+
+    button.copy{
+      cursor:pointer;
+      border:none;
+      background: var(--btn);
+      color:#fff;
+      font-weight:700;
+      font-size:12px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      transition: background 140ms ease, transform 140ms ease;
+      white-space:nowrap;
+    }
+    button.copy:hover{ background: var(--btnHover); transform: translateY(-1px); }
+    button.copy:active{ transform: translateY(0px) scale(0.98); }
+
+    pre{
+      margin:0;
+      padding: 12px;
+      background: var(--codebg);
+      color: var(--codefg);
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+      white-space: pre;
+    }
+
+    textarea.hidden{
+      position:absolute;
+      left:-9999px;
+      top:-9999px;
+      width:1px;
+      height:1px;
+      opacity:0;
+    }
+
+    .toast{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: rgba(17,24,39,0.92);
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 160ms ease, transform 160ms ease;
+      pointer-events:none;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h1>Node.js, Express, WampServer & MySQL — Setup Guide </h1>
+    </div>
+
+    <!-- 1) Node.js Setup -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>1) Node.js Setup</b>
+          <span>install • verify node & npm</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+Node.js Setup:
+1) Download Node.js from the official website.
+2) Install Node.js (npm is included).
+3) Verify installation:
+
+node -v
+npm -v
+      </textarea>
+
+      <pre>Node.js Setup:
+1) Download Node.js from the official website.
+2) Install Node.js (npm is included).
+3) Verify installation:
+
+node -v
+npm -v</pre>
+    </section>
+
+    <!-- 2) WampServer Setup -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>2) WampServer Setup</b>
+          <span>install • start • green icon check</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+WampServer Setup:
+1) Download WampServer from the official website.
+2) Install WampServer using the setup wizard.
+3) Start WampServer.
+4) Check the system tray icon:
+   - Green icon = running properly
+      </textarea>
+
+      <pre>WampServer Setup:
+1) Download WampServer from the official website.
+2) Install WampServer using the setup wizard.
+3) Start WampServer.
+4) Check the system tray icon:
+   - Green icon = running properly</pre>
+    </section>
+
+    <!-- 3) MySQL Setup -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>3) MySQL Setup (via WampServer)</b>
+          <span>open console • create database</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+MySQL Setup (Using WampServer):
+1) Click WampServer icon in system tray
+2) Go to: MySQL > MySQL Console
+3) Create a database:
+
+CREATE DATABASE mydatabase;
+      </textarea>
+
+      <pre>MySQL Setup (Using WampServer):
+1) Click WampServer icon in system tray
+2) Go to: MySQL &gt; MySQL Console
+3) Create a database:
+
+CREATE DATABASE mydatabase;</pre>
+    </section>
+
+    <!-- 4) Express Setup -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>4) Express Setup</b>
+          <span>install express</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+Express Setup:
+Install Express using npm:
+
+npm install express
+
+Express is a flexible Node.js framework used to build web applications and APIs.
+      </textarea>
+
+      <pre>Express Setup:
+Install Express using npm:
+
+npm install express
+
+Express is a flexible Node.js framework used to build web applications and APIs.</pre>
+    </section>
+
+    <!-- 5) Linking Node.js with MySQL -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>5) Linking Node.js with MySQL</b>
+          <span>install mysql package</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+Linking Node.js with MySQL:
+1) Install the mysql package:
+
+npm install mysql
+
+2) Use it to connect your Node.js app to a MySQL database.
+      </textarea>
+
+      <pre>Linking Node.js with MySQL:
+1) Install the mysql package:
+
+npm install mysql
+
+2) Use it to connect your Node.js app to a MySQL database.</pre>
+    </section>
+
+    <!-- 6) Using MySQL with Express -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>6) Using MySQL with Express</b>
+          <span>routes • queries • serve data</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+Using MySQL with Express:
+1) Create Express routes.
+2) Run SQL queries inside routes.
+3) Send database results to the client (JSON/HTML).
+Example idea:
+- GET /users -> fetch users from MySQL -> return as JSON
+      </textarea>
+
+      <pre>Using MySQL with Express:
+1) Create Express routes.
+2) Run SQL queries inside routes.
+3) Send database results to the client (JSON/HTML).
+Example idea:
+- GET /users -&gt; fetch users from MySQL -&gt; return as JSON</pre>
+    </section>
+
+    <!-- 7) Explanation Summary -->
+    <section class="card">
+      <div class="head">
+        <div class="title">
+          <b>Explanation (Summary)</b>
+          <span>what each tool does</span>
+        </div>
+        <button class="copy" type="button">Copy</button>
+      </div>
+
+      <textarea class="hidden" readonly>
+Explanation:
+- Node.js: runtime to execute JavaScript outside the browser (backend).
+- Express: framework to build web servers/APIs quickly using Node.js.
+- WampServer: Windows local server bundle (Apache + MySQL + PHP).
+- MySQL: relational database used for storing structured data.
+- Linking Node.js with MySQL: connect Node app to DB using mysql package.
+- Using MySQL with Express: query DB inside Express routes and serve results.
+      </textarea>
+
+      <pre>Explanation:
+- Node.js: runtime to execute JavaScript outside the browser (backend).
+- Express: framework to build web servers/APIs quickly using Node.js.
+- WampServer: Windows local server bundle (Apache + MySQL + PHP).
+- MySQL: relational database used for storing structured data.
+- Linking Node.js with MySQL: connect Node app to DB using mysql package.
+- Using MySQL with Express: query DB inside Express routes and serve results.</pre>
+    </section>
+
+  </div>
+
+  <div class="toast" id="toast">Copied ✅</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.classList.remove("show"), 900);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("Copied ✅");
+      }catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast("Copied ✅");
+      }
+    }
+
+    document.querySelectorAll(".card").forEach(card=>{
+      const btn = card.querySelector("button.copy");
+      const ta  = card.querySelector("textarea.hidden");
+      btn.addEventListener("click", ()=> copyText(ta.value.trim()));
+    });
+  </script>
+</body>
+</html>
