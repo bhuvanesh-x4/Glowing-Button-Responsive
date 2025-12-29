@@ -3,28 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact Section</title>
+  <title>Contact — Minimal</title>
 
   <style>
     :root{
-      --bg:#f6f7fb;
+      --bg:#f5f7fb;
       --card:#ffffff;
       --border:rgba(17,24,39,.12);
-      --text:#111827;
-      --muted:rgba(17,24,39,.65);
-      --btn:#2563eb;
-      --btnHover:#1d4ed8;
-      --radius:16px;
-      --shadow: 0 12px 30px rgba(17,24,39,.08);
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.62);
+      --code:#0b1220;
+
+      --accent:#2563eb;
+      --accent2:#7c3aed;
+
+      --radius:18px;
+      --shadow: 0 18px 45px rgba(2, 6, 23, .08);
+      --ring: 0 0 0 4px rgba(37,99,235,.12);
     }
 
     *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; }
 
-    html, body{
-      margin:0;
+    body{
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
-      background: linear-gradient(180deg, var(--bg), #fff);
+      background:
+        radial-gradient(1000px 400px at 15% 0%, rgba(37,99,235,.10), transparent 55%),
+        radial-gradient(800px 400px at 85% 10%, rgba(124,58,237,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #fff);
     }
 
     .wrap{
@@ -33,23 +40,23 @@
       padding: 18px;
     }
 
-    .top{
+    .hero{
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 18px 18px 14px;
       box-shadow: var(--shadow);
       margin-bottom: 14px;
     }
 
-    .top h2{
+    .hero h2{
       margin:0;
-      font-size: 20px;
+      font-size: 22px;
       letter-spacing: .2px;
     }
 
-    .top p{
-      margin:6px 0 0;
+    .hero p{
+      margin:8px 0 0;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.5;
@@ -57,15 +64,15 @@
 
     .grid{
       display:grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1fr 1fr;
       gap: 14px;
+      align-items: start;
     }
-
-    @media (max-width: 900px){
+    @media (max-width: 920px){
       .grid{ grid-template-columns: 1fr; }
     }
 
-    .card{
+    .panel{
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -73,119 +80,126 @@
       overflow:hidden;
     }
 
-    .cardHead{
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid rgba(17,24,39,.08);
+    .panelHead{
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(15,23,42,.08);
       display:flex;
-      justify-content:space-between;
       align-items:center;
-      gap: 10px;
+      justify-content:space-between;
+      gap: 12px;
     }
 
-    .cardHead b{ font-size: 14px; }
-    .cardHead span{ font-size: 12px; color: var(--muted); }
+    .panelHead b{
+      font-size: 14px;
+      letter-spacing: .2px;
+    }
+    .panelHead span{
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-    .contacts{
+    /* CONTACT TILES */
+    .tiles{
+      padding: 14px;
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      padding: 14px;
     }
-
     @media (max-width: 520px){
-      .contacts{ grid-template-columns: 1fr; }
+      .tiles{ grid-template-columns: 1fr; }
     }
 
-    .pill{
-      border: 1px solid rgba(17,24,39,.12);
-      border-radius: 14px;
+    .tile{
+      border: 1px solid rgba(15,23,42,.12);
+      border-radius: 16px;
       padding: 12px;
       display:flex;
-      gap: 12px;
       align-items:center;
+      gap: 12px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
       transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+      min-width: 0;
     }
 
-    .pill:hover{
+    .tile:hover{
       transform: translateY(-2px);
-      box-shadow: 0 14px 35px rgba(17,24,39,.10);
+      box-shadow: 0 18px 40px rgba(2,6,23,.10);
       border-color: rgba(37,99,235,.35);
     }
 
-    .logo{
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+    .icon{
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
       display:grid;
       place-items:center;
       background: rgba(37,99,235,.10);
       border: 1px solid rgba(37,99,235,.18);
       flex: 0 0 auto;
+      color: var(--text);
     }
 
-    .meta{
+    .info{
       display:flex;
       flex-direction:column;
       gap: 4px;
       min-width: 0;
+      flex: 1 1 auto;
     }
 
-    .meta small{
-      color: var(--muted);
+    .info small{
       font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .meta a{
-      color: var(--text);
-      text-decoration:none;
-      font-weight: 800;
+    .value{
       font-size: 13px;
-      overflow:hidden;
-      text-overflow: ellipsis;
+      font-weight: 900;
+      text-decoration:none;
+      color: var(--text);
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; /* fixes overlap */
+      max-width: 100%;
+      display:block;
     }
 
     .actions{
-      margin-left:auto;
       display:flex;
       gap: 8px;
-      align-items:center;
       flex: 0 0 auto;
     }
 
     .btn{
       cursor:pointer;
       border:none;
-      background: var(--btn);
-      color:#fff;
-      font-weight: 800;
-      font-size: 12px;
-      padding: 9px 10px;
       border-radius: 12px;
-      transition: background 140ms ease, transform 140ms ease;
-      white-space:nowrap;
+      padding: 9px 10px;
+      font-weight: 900;
+      font-size: 12px;
+      transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+      white-space: nowrap;
     }
 
-    .btn:hover{ background: var(--btnHover); transform: translateY(-1px); }
-    .btn:active{ transform: translateY(0px) scale(0.98); }
+    .btnPrimary{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color:#fff;
+      box-shadow: 0 10px 22px rgba(37,99,235,.20);
+    }
+    .btnPrimary:hover{ transform: translateY(-1px); }
+    .btnPrimary:active{ transform: translateY(0px) scale(.98); }
 
-    .ghost{
-      cursor:pointer;
-      border: 1px solid rgba(17,24,39,.12);
+    .btnGhost{
       background: #fff;
       color: var(--text);
-      font-weight: 800;
-      font-size: 12px;
-      padding: 9px 10px;
-      border-radius: 12px;
-      transition: transform 140ms ease, border-color 140ms ease;
-      white-space:nowrap;
+      border: 1px solid rgba(15,23,42,.12);
     }
+    .btnGhost:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); }
+    .btnGhost:active{ transform: translateY(0px) scale(.98); }
 
-    .ghost:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); }
-    .ghost:active{ transform: translateY(0px) scale(0.98); }
-
+    /* FORM */
     .form{
       padding: 14px;
       display:flex;
@@ -193,139 +207,142 @@
       gap: 10px;
     }
 
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 520px){
+      .row{ grid-template-columns: 1fr; }
+    }
+
     label{
       font-size: 12px;
       color: var(--muted);
-      font-weight: 700;
-      margin-bottom: 4px;
+      font-weight: 800;
       display:block;
+      margin: 0 0 6px;
     }
 
     input, textarea{
       width: 100%;
-      border: 1px solid rgba(17,24,39,.14);
-      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,.14);
+      border-radius: 14px;
       padding: 11px 12px;
       font-size: 13px;
       outline: none;
       transition: border-color 120ms ease, box-shadow 120ms ease;
       background: #fff;
     }
-
     input:focus, textarea:focus{
-      border-color: rgba(37,99,235,.45);
-      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+      border-color: rgba(37,99,235,.50);
+      box-shadow: var(--ring);
     }
+    textarea{ min-height: 118px; resize: vertical; }
 
-    textarea{ min-height: 120px; resize: vertical; }
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    .submit{
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:none;
+      cursor:pointer;
+      font-weight: 950;
+      letter-spacing: .2px;
+      color:#fff;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 30px rgba(37,99,235,.22);
+      transition: transform 140ms ease, filter 140ms ease;
     }
+    .submit:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .submit:active{ transform: translateY(0px) scale(.99); }
 
-    @media (max-width: 520px){
-      .row{ grid-template-columns: 1fr; }
-    }
-
-    .hint{
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
+    /* TOAST */
     .toast{
       position: fixed;
       right: 16px;
       bottom: 16px;
-      background: rgba(17,24,39,0.92);
+      background: rgba(2,6,23,0.92);
       color:#fff;
       padding: 10px 12px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 900;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 160ms ease, transform 160ms ease;
       pointer-events:none;
     }
-    .toast.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .toast.show{ opacity:1; transform: translateY(0); }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
-      <h2>Contact</h2>
-      <p>Quick access tiles + a query box. (Works great embedded inside Google Sites.)</p>
-    </div>
+
+    <div class="hero">
+      <h2>SocialS</h2>
+         </div>
 
     <div class="grid">
 
-      <!-- LEFT: Contact Tiles -->
-      <section class="card">
-        <div class="cardHead">
+      <!-- LEFT: Tiles -->
+      <section class="panel">
+        <div class="panelHead">
           <div>
-            <b>Reach me directly</b><br>
-            <span>Tap to open • or copy instantly</span>
+            <b>Reach me</b><br>
+            <span>Copy or open instantly</span>
           </div>
         </div>
 
-        <div class="contacts">
+        <div class="tiles">
           <!-- Gmail -->
-          <div class="pill">
-            <div class="logo" aria-hidden="true">
-              <!-- Gmail icon (SVG) -->
+          <div class="tile">
+            <div class="icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 7.2V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                <path d="M4 8l8 6 8-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
 
-            <div class="meta">
+            <div class="info">
               <small>Gmail</small>
-              <a href="mailto:bhuvaneshV4@gmail.com">bhuvaneshV4@gmail.com</a>
+              <a class="value" href="mailto:bhuvaneshV4@gmail.com">bhuvaneshV4@gmail.com</a>
             </div>
 
             <div class="actions">
-              <button class="ghost" type="button" data-copy="bhuvaneshV4@gmail.com">Copy</button>
-              <a class="btn" href="mailto:bhuvaneshV4@gmail.com" style="text-decoration:none; display:inline-block;">Mail</a>
+              <button class="btn btnGhost" type="button" data-copy="bhuvaneshV4@gmail.com">Copy</button>
+              <a class="btn btnPrimary" href="mailto:bhuvaneshV4@gmail.com" style="text-decoration:none; display:inline-block;">Mail</a>
             </div>
           </div>
 
           <!-- Phone -->
-          <div class="pill">
-            <div class="logo" aria-hidden="true">
-              <!-- Phone icon (SVG) -->
+          <div class="tile">
+            <div class="icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M6.5 4.8c.7-1 2.1-1.1 3-.2l2 2c.7.7.7 1.8.1 2.6l-.8 1.2c1.1 2 2.8 3.6 4.8 4.8l1.2-.8c.8-.6 1.9-.6 2.6.1l2 2c.9.9.8 2.3-.2 3-1 .8-2.2 1.2-3.5 1.1-6.8-.6-12.3-6.1-12.9-12.9-.1-1.3.3-2.5 1.1-3.5Z"
-                      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.6 4.8c.7-1 2.1-1.1 3-.2l2 2c.7.7.7 1.8.1 2.6l-.8 1.2c1.1 2 2.8 3.6 4.8 4.8l1.2-.8c.8-.6 1.9-.6 2.6.1l2 2c.9.9.8 2.3-.2 3-1 .8-2.2 1.2-3.5 1.1-6.8-.6-12.3-6.1-12.9-12.9-.1-1.3.3-2.5 1.1-3.5Z"
+                      stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
 
-            <div class="meta">
+            <div class="info">
               <small>Phone</small>
-              <a href="tel:+919663394621">+91 96633 94621</a>
+              <a class="value" href="tel:+919663394621">+91 96633 94621</a>
             </div>
 
             <div class="actions">
-              <button class="ghost" type="button" data-copy="+919663394621">Copy</button>
-              <a class="btn" href="tel:+919663394621" style="text-decoration:none; display:inline-block;">Call</a>
+              <button class="btn btnGhost" type="button" data-copy="+919663394621">Copy</button>
+              <a class="btn btnPrimary" href="tel:+919663394621" style="text-decoration:none; display:inline-block;">Call</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- RIGHT: Query Box -->
-      <section class="card">
-        <div class="cardHead">
+      <!-- RIGHT: Queries -->
+      <section class="panel">
+        <div class="panelHead">
           <div>
             <b>Queries</b><br>
-            <span>Send a quick message</span>
+            <span>Send a message</span>
           </div>
         </div>
 
@@ -333,24 +350,20 @@
           <div class="row">
             <div>
               <label for="qName">Name</label>
-              <input id="qName" name="name" type="text" placeholder="Your name" required />
+              <input id="qName" type="text" placeholder="Your name" required />
             </div>
             <div>
               <label for="qEmail">Email</label>
-              <input id="qEmail" name="email" type="email" placeholder="you@example.com" required />
+              <input id="qEmail" type="email" placeholder="you@example.com" required />
             </div>
           </div>
 
           <div>
             <label for="qMsg">Message</label>
-            <textarea id="qMsg" name="message" placeholder="Type your query..." required></textarea>
+            <textarea id="qMsg" placeholder="Type your query..." required></textarea>
           </div>
 
-          <button class="btn" type="submit">Submit</button>
-          <div class="hint">
-            Note: Google Sites embed cannot directly run server-side email sending.
-            This form opens your mail client with the filled details (mailto).
-          </div>
+          <button class="submit" type="submit">Submit</button>
         </form>
       </section>
 
@@ -388,10 +401,10 @@
       btn.addEventListener("click", ()=> copyText(btn.getAttribute("data-copy")));
     });
 
-    // Query form -> opens mail client with pre-filled content (no backend needed)
-    const form = document.getElementById("queryForm");
-    form.addEventListener("submit", (e)=>{
+    // Form -> opens Gmail compose (mailto) with prefilled details (best for Google Sites embed)
+    document.getElementById("queryForm").addEventListener("submit", (e)=>{
       e.preventDefault();
+
       const name = document.getElementById("qName").value.trim();
       const email = document.getElementById("qEmail").value.trim();
       const msg = document.getElementById("qMsg").value.trim();
