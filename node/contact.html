@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Section</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --border:rgba(17,24,39,.12);
+      --text:#111827;
+      --muted:rgba(17,24,39,.65);
+      --btn:#2563eb;
+      --btnHover:#1d4ed8;
+      --radius:16px;
+      --shadow: 0 12px 30px rgba(17,24,39,.08);
+    }
+
+    *{ box-sizing:border-box; }
+
+    html, body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background: linear-gradient(180deg, var(--bg), #fff);
+    }
+
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .top{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    .top h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+
+    .top p{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .cardHead{
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .cardHead b{ font-size: 14px; }
+    .cardHead span{ font-size: 12px; color: var(--muted); }
+
+    .contacts{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    @media (max-width: 520px){
+      .contacts{ grid-template-columns: 1fr; }
+    }
+
+    .pill{
+      border: 1px solid rgba(17,24,39,.12);
+      border-radius: 14px;
+      padding: 12px;
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+    }
+
+    .pill:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(17,24,39,.10);
+      border-color: rgba(37,99,235,.35);
+    }
+
+    .logo{
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(37,99,235,.18);
+      flex: 0 0 auto;
+    }
+
+    .meta{
+      display:flex;
+      flex-direction:column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .meta small{
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .meta a{
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 13px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .actions{
+      margin-left:auto;
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      flex: 0 0 auto;
+    }
+
+    .btn{
+      cursor:pointer;
+      border:none;
+      background: var(--btn);
+      color:#fff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      transition: background 140ms ease, transform 140ms ease;
+      white-space:nowrap;
+    }
+
+    .btn:hover{ background: var(--btnHover); transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0px) scale(0.98); }
+
+    .ghost{
+      cursor:pointer;
+      border: 1px solid rgba(17,24,39,.12);
+      background: #fff;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 12px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      transition: transform 140ms ease, border-color 140ms ease;
+      white-space:nowrap;
+    }
+
+    .ghost:hover{ transform: translateY(-1px); border-color: rgba(37,99,235,.35); }
+    .ghost:active{ transform: translateY(0px) scale(0.98); }
+
+    .form{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+      display:block;
+    }
+
+    input, textarea{
+      width: 100%;
+      border: 1px solid rgba(17,24,39,.14);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+      background: #fff;
+    }
+
+    input:focus, textarea:focus{
+      border-color: rgba(37,99,235,.45);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    textarea{ min-height: 120px; resize: vertical; }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 520px){
+      .row{ grid-template-columns: 1fr; }
+    }
+
+    .hint{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .toast{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: rgba(17,24,39,0.92);
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 160ms ease, transform 160ms ease;
+      pointer-events:none;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h2>Contact</h2>
+      <p>Quick access tiles + a query box. (Works great embedded inside Google Sites.)</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- LEFT: Contact Tiles -->
+      <section class="card">
+        <div class="cardHead">
+          <div>
+            <b>Reach me directly</b><br>
+            <span>Tap to open • or copy instantly</span>
+          </div>
+        </div>
+
+        <div class="contacts">
+          <!-- Gmail -->
+          <div class="pill">
+            <div class="logo" aria-hidden="true">
+              <!-- Gmail icon (SVG) -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="meta">
+              <small>Gmail</small>
+              <a href="mailto:bhuvaneshV4@gmail.com">bhuvaneshV4@gmail.com</a>
+            </div>
+
+            <div class="actions">
+              <button class="ghost" type="button" data-copy="bhuvaneshV4@gmail.com">Copy</button>
+              <a class="btn" href="mailto:bhuvaneshV4@gmail.com" style="text-decoration:none; display:inline-block;">Mail</a>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="pill">
+            <div class="logo" aria-hidden="true">
+              <!-- Phone icon (SVG) -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M6.5 4.8c.7-1 2.1-1.1 3-.2l2 2c.7.7.7 1.8.1 2.6l-.8 1.2c1.1 2 2.8 3.6 4.8 4.8l1.2-.8c.8-.6 1.9-.6 2.6.1l2 2c.9.9.8 2.3-.2 3-1 .8-2.2 1.2-3.5 1.1-6.8-.6-12.3-6.1-12.9-12.9-.1-1.3.3-2.5 1.1-3.5Z"
+                      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="meta">
+              <small>Phone</small>
+              <a href="tel:+919663394621">+91 96633 94621</a>
+            </div>
+
+            <div class="actions">
+              <button class="ghost" type="button" data-copy="+919663394621">Copy</button>
+              <a class="btn" href="tel:+919663394621" style="text-decoration:none; display:inline-block;">Call</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Query Box -->
+      <section class="card">
+        <div class="cardHead">
+          <div>
+            <b>Queries</b><br>
+            <span>Send a quick message</span>
+          </div>
+        </div>
+
+        <form class="form" id="queryForm">
+          <div class="row">
+            <div>
+              <label for="qName">Name</label>
+              <input id="qName" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div>
+              <label for="qEmail">Email</label>
+              <input id="qEmail" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="qMsg">Message</label>
+            <textarea id="qMsg" name="message" placeholder="Type your query..." required></textarea>
+          </div>
+
+          <button class="btn" type="submit">Submit</button>
+          <div class="hint">
+            Note: Google Sites embed cannot directly run server-side email sending.
+            This form opens your mail client with the filled details (mailto).
+          </div>
+        </form>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied ✅</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.classList.remove("show"), 900);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("Copied ✅");
+      }catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast("Copied ✅");
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach(btn=>{
+      btn.addEventListener("click", ()=> copyText(btn.getAttribute("data-copy")));
+    });
+
+    // Query form -> opens mail client with pre-filled content (no backend needed)
+    const form = document.getElementById("queryForm");
+    form.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const name = document.getElementById("qName").value.trim();
+      const email = document.getElementById("qEmail").value.trim();
+      const msg = document.getElementById("qMsg").value.trim();
+
+      const subject = encodeURIComponent(`Portfolio Query from ${name}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}\n`
+      );
+
+      window.location.href = `mailto:bhuvaneshV4@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
